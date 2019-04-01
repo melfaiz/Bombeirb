@@ -128,7 +128,6 @@ static short input_keyboard(struct game* game) {
 				player_move(player, map);
 				break;
 			case SDLK_SPACE:
-				//map_set_cell_type(map, player_get_x(player) , player_get_y(player), CELL_BOMB);
 				player_drop_bomb(player,map);
 				break;
 			default:
@@ -144,6 +143,5 @@ static short input_keyboard(struct game* game) {
 int game_update(struct game* game) {
 	if (input_keyboard(game))
 		return 1; // exit game
-
 	return 0;
 }

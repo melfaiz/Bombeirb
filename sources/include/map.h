@@ -71,4 +71,9 @@ struct map* map_get_static();
 // Display the map on the screen
 void map_display(struct map* map);
 
+void open_door(struct map* map);
+void map_display_door(struct map* map, int x, int  y);
+
+char next_level(struct map* map);
+struct map* map_get(char N);
 #endif /* MAP_H_ */

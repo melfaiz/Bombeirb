@@ -83,7 +83,8 @@ static int player_move_aux(struct player* player, struct map* map, int x, int y)
 		break;
 
 	case CELL_BOX:
-		return 0;
+	 
+		return 1;
 		break;
 
 	case CELL_BONUS:
@@ -92,6 +93,11 @@ static int player_move_aux(struct player* player, struct map* map, int x, int y)
 
 	case CELL_MONSTER:
 		return 0;
+		break;
+	case CELL_KEY:
+		open_door(map);
+		map_set_cell_type(map, x , y, CELL_EMPTY);
+		return 1;
 		break;
 
 	default:
@@ -109,29 +115,55 @@ int player_move(struct player* player, struct map* map) {
 
 	switch (player->current_direction) {
 	case NORTH:
-		if (player_move_aux(player, map, x, y - 1)) {
+
+		if (player_move_aux(player, map, x, y - 1) && map_get_cell_type(map, x, y-1) == !CELL_BOX  )  {
 			player->y--;
 			move = 1;
 		}
+		if (player_move_aux(player, map, x, y - 1) && map_get_cell_type(map, x, y-1) == CELL_BOX && player_move_aux(player, map, x, y - 2) && map_get_cell_type(map, x, y-2) == CELL_EMPTY ) {
+				map_set_cell_type(map,x,y-1,CELL_EMPTY);
+				map_set_cell_type(map,x,y-2,CELL_BOX);
+							player->y--;
+			move = 1;
+		}
+
 		break;
 
 	case SOUTH:
-		if (player_move_aux(player, map, x, y + 1)) {
+		if (player_move_aux(player, map, x, y + 1) && map_get_cell_type(map, x, y+1) == !CELL_BOX  )  {
+			player->y++;
+			move = 1;
+		}
+		if (player_move_aux(player, map, x, y + 1) && map_get_cell_type(map, x, y+1) == CELL_BOX && player_move_aux(player, map, x, y + 2) && map_get_cell_type(map, x, y+2) == CELL_EMPTY ) {
+				map_set_cell_type(map,x,y+1,CELL_EMPTY);
+				map_set_cell_type(map,x,y+2,CELL_BOX);
 			player->y++;
 			move = 1;
 		}
 		break;
 
 	case WEST:
-		if (player_move_aux(player, map, x - 1, y)) {
+		if (player_move_aux(player, map, x-1, y) && map_get_cell_type(map, x-1, y) == !CELL_BOX  )  {
 			player->x--;
+			move = 1;
+		}
+		if (player_move_aux(player, map, x-1, y) && map_get_cell_type(map, x-1, y) == CELL_BOX && player_move_aux(player, map, x-2, y) && map_get_cell_type(map, x-2, y) == CELL_EMPTY ) {
+				map_set_cell_type(map,x-1,y,CELL_EMPTY);
+				map_set_cell_type(map,x-2,y,CELL_BOX);
+							player->x--;
 			move = 1;
 		}
 		break;
 
 	case EAST:
-		if (player_move_aux(player, map, x + 1, y)) {
+		if (player_move_aux(player, map, x+1, y) && map_get_cell_type(map, x+1, y) == !CELL_BOX  )  {
 			player->x++;
+			move = 1;
+		}
+		if (player_move_aux(player, map, x+1, y) && map_get_cell_type(map, x+1, y) == CELL_BOX && player_move_aux(player, map, x+2, y ) && map_get_cell_type(map, x+2, y) == CELL_EMPTY ) {
+				map_set_cell_type(map,x+1,y,CELL_EMPTY);
+				map_set_cell_type(map,x+2,y,CELL_BOX);
+							player->x++;
 			move = 1;
 		}
 		break;
