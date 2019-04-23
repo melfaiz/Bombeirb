@@ -324,6 +324,7 @@ struct map* map_get(char N){
 void map_open_door(struct map* map){
 	if (map->door_closed)
 		map->door_closed = 0;
+	//	map->door_closed = 0;
 }
 int door_is_closed(struct map* map){
 	if (map->door_closed)
@@ -336,4 +337,5 @@ void display_door(struct map* map, int x, int  y){
 				window_display_image(sprite_get_door_closed() ,x ,y);
 			else
 				window_display_image(sprite_get_door_opened() ,x ,y);
+
 }
