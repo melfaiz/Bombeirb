@@ -14,6 +14,7 @@ void window_refresh();
 
 // display a SDL_Surface at location (x,y)
 void window_display_image(SDL_Surface* surface, int x, int y);
+void window_set_size(int w,int h);
 
 // set every pixel of the window to white
 void window_clear();

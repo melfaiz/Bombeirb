@@ -34,9 +34,16 @@ void window_display_image(SDL_Surface* sprite, int x, int y) {
 	SDL_BlitSurface(sprite, NULL, window, &place);
 }
 
+void window_set_size(int w,int h){
+	assert(window);
+	//SDL_SetWindowSize(window, w,h);
+}
+
 void window_clear() {
 	assert(window);
 	SDL_FillRect(window, NULL, SDL_MapRGB(window->format, 255, 255, 255));
+
+
 }
 
 void window_refresh() {

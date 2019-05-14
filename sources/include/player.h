@@ -14,6 +14,8 @@ struct player;
 struct player* player_init(int bomb_number);
 void   player_free(struct player* player);
 
+void set_player(struct player *player, int x, int y,int level,enum direction direction,int nb_bombs,int lives,int range);
+
 // Set the position of the player
 void player_set_position(struct player *player, int x, int y);
 
@@ -41,10 +43,20 @@ void player_display(struct player* player);
 int player_get_nb_lives(struct player* player);
 void player_set_nb_lives(struct player* player,int lives);
 
-void player_lvl_up(struct player*  player);
-int player_get_lvl_up(struct player*  player);
 int player_get_lvl(struct player*  player);
+void player_set_lvl(struct player*  player,int level);
+
 void player_inc_lvl(struct player*  player);
 int player_get_range(struct player* player);
 
+void player_set_nb_range(struct player* player,int range);
+
+enum direction player_get_current_way(struct player* player);
+
+void player_dec_lvl(struct player*  player);
+
+void player_down(struct player*  player);
+
+int end_game(struct player* player);
+ 
 #endif /* PLAYER_H_ */

@@ -1,3 +1,5 @@
 .DS_Store
 sources/bin/
 sources/.obj/
+.vscode
+sources/.vscode/
